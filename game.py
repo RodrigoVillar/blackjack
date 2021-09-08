@@ -51,14 +51,16 @@ def round():
         dealer_deck.append(current_deck[0])
         current_deck = current_deck[1:]
 
+    result = winner(player_deck, dealer_deck)
+
+    if result is not None:
+        # Announce winner, return to main menu
+        pass
+
     print("You current cards are the following: " + str(show_player(player_deck)))
     print("The dealer's shown card is the following: " + str(dealer_deck[0].show_string()))
 
     initial_result = winner(player_deck, dealer_deck)
-    if initial_result ==
-
-    while True:
-        break
 
 def show_player(deck):
     result = []
@@ -69,6 +71,9 @@ def show_player(deck):
     return result
 
 def get_card_value(card):
+    """
+    Precondition: card is a card object
+    """
     value = card.value
     if value == 'ace':
         return [1, 11]
@@ -83,6 +88,16 @@ def get_card_value(card):
 
 def winner(player, dealer):
     result = None
+    # First convert cards to number value
+    player_nums = []
+    dealer_nums = []
+    for card in player:
+        val = get_card_value(card)
+        if type(card) == list:
+            pass
+            # This is the case for an undecided ace
+        else:
+            val = get_card_value()
 
 
 
