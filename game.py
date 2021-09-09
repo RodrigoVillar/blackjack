@@ -41,6 +41,10 @@ def round():
     player_deck = []
     dealer_deck = []
 
+    # Creating player, dealer scores
+    player_score = []
+    dealer_score = []
+
     # Gives out two cards to both player and dealer (in that order)
     for x in range(2):
         # Gives card to player, removes it from current_deck
@@ -53,9 +57,12 @@ def round():
 
     result = winner(player_deck, dealer_deck)
 
-    if result is not None:
+    if result is not 0:
         # Announce winner, return to main menu
-        pass
+        if result == 1:
+            pass
+        elif result == 2:
+            pass
 
     print("You current cards are the following: " + str(show_player(player_deck)))
     print("The dealer's shown card is the following: " + str(dealer_deck[0].show_string()))
@@ -87,17 +94,50 @@ def get_card_value(card):
         return int(value)
 
 def winner(player, dealer):
-    result = None
+    result = 0
     # First convert cards to number value
     player_nums = []
     dealer_nums = []
+    # Create list of player/dealer scores
+    player_result = [0, 0]
+    dealer_result = [0]
     for card in player:
         val = get_card_value(card)
-        if type(card) == list:
-            pass
-            # This is the case for an undecided ace
+        player_nums.append(val)
+    for card in dealer:
+        val = get_card_value(card)
+        dealer_nums.append(val)
+    # For undecided ace, create two variables, use as a 1 and other as 11. Then compare at the end.
+    for val in player_nums:
+        if type(val) == list:
+            player_result[0]+= 1
+            player_result[1] += 11
         else:
-            val = get_card_value()
+            player_result[0] += val
+            player_result[1] += val
+
+    # Since we're playing with dealer soft 17, no need to check 1 or 11 Ace
+    dealer_result[0] += val
+
+    # Check for blackjack
+    for val in player_result:
+        if val == 21:
+            result = 1
+    for val in dealer_result:
+        if val == 21:
+            if result == 1:
+                result = 3
+                break
+            else:
+                result = 2
+
+    return result
+
+    # Check for ties
+
+
+
+
 
 
 
