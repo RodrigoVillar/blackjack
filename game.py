@@ -1,21 +1,35 @@
 """
 My attempt to code a game of blackjack, insprired by my annoyance of seeing ads every two seconds while playing blackjack on my phone.
-
-
 """
 
 import random, copy
 
 class Card:
+    """
+    A card class that stores the value and suit of a card.
+    """
 
     def __init__(self, value, color):
+        """
+        Parameter value: the value of the card
+        Precondition: value is a string representing the value of a card
+
+        Parameter color: the suit of the card
+        Precondition: color is a string respresenting the suit of a card
+        """
         self.value = value
         self.color = color
     
-    def show(self):
+    def show_print(self):
+        """
+        Prints out the cards of the user (player/dealer)
+        """
         print(str(self.value) + " of " + str(self.color))
 
     def show_string(self):
+        """
+        Returns a string of the cards the user currently has (player/dealer)
+        """
         return (str(self.value) + " of " + str(self.color))
 
 colors = ['heart', 'diamonds', 'spades', 'clubs']
@@ -23,6 +37,12 @@ values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 
 deck = [Card(value, color) for value in values for color in colors]
 
 def process():
+    """
+    Function called when game.py is run
+
+    Begins by telling the user to hit 'c' to begin playing. Once the user proceeds, process() call round(), which
+    effectively begins the game.
+    """
     print("Welcome to Blackjack! Enter c to continue:")
 
     while True:
@@ -132,13 +152,6 @@ def winner(player, dealer):
                 result = 2
 
     return result
-
-    # Check for ties
-
-
-
-
-
 
 
 
