@@ -92,6 +92,14 @@ class Score:
         """
         return self.score[0] == 21 or self.score[1] == 21
 
+    def busted(self):
+        """
+        Function that checks if either one of the player's/dealer's lowest
+        possible hand is greater than 21. Returns true if the player/dealer
+        has busted, false otherwise
+        """
+        return self.score[0] > 21
+
 
 suit = ['heart', 'diamonds', 'spades', 'clubs']
 values = ['ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack',
@@ -124,18 +132,36 @@ def game():
     for card in dealer_deck:  # Calculate dealer score
         dealer_score.add_card(card)
 
-    win = winner(player_score, dealer_score)
+    win = winner(player_score, dealer_score)  # Check to see if there is an
+    # immediate winner
+
+    dealer_shown_card = dealer_deck[0]
 
     if win == -1:
         while True:
             print("You have the following cards: ")
             for card in player_deck:
                 card.print_card()
-            print("The dealer has the following card: " + card.return_string())
+            print("The dealer has the following card shown: " +
+                  dealer_shown_card.return_string())
             choice = input(
                 "Would you like to hit or stand? Enter 'hit' to hit and 'stand' to stand: ")
             if choice == 'hit':
-                pass
+                # Deal card to user
+                player_deck.append(local_deck[0])
+                local_deck = local_deck[1:]
+                player_score.add_card(player_deck[-1])
+                # Tell player what card they got
+                print("You got: " + player_deck[-1].return_string())
+                # Check if user has busted or not
+                if player_score.busted():
+                    print("Sorry, but you've went over 21. You lose!")
+                    break
+                # Check if user has won
+                win = winner(player_score, dealer_score)
+                if win == 1:
+                    print("Congratulations, you have blackjack!")
+                    break
             else:  # Implicitly stand
                 pass
                 break  # Once stand is called, player cannot go back
