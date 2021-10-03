@@ -23,15 +23,19 @@ class Card:
         self.value = value
         self.color = color
 
-    def show_card(self):
+    def print_card(self):
         """
         Prints out the card of the user (player/dealer)
+
+        Example: '4 of spades'
         """
         print(str(self.value) + " of " + str(self.color))
 
     def return_string(self):
         """
-        Returns a string of the cards the user currently has (player/dealer)
+        Returns a string of the card the user currently has (player/dealer)
+
+        Example: '4 of spades'
         """
         return (str(self.value) + " of " + str(self.color))
 
@@ -123,13 +127,25 @@ def game():
     win = winner(player_score, dealer_score)
 
     if win == -1:
-        pass
+        while True:
+            print("You have the following cards: ")
+            for card in player_deck:
+                card.print_card()
+            print("The dealer has the following card: " + card.return_string())
+            choice = input(
+                "Would you like to hit or stand? Enter 'hit' to hit and 'stand' to stand: ")
+            if choice == 'hit':
+                pass
+            else:  # Implicitly stand
+                pass
+                break  # Once stand is called, player cannot go back
+
     elif win == 0:
-        pass
+        print("Both you and the dealer have 21 and the same cards, PUSH!")
     elif win == 1:
-        pass
+        print("Congrats, you have blackjack!")
     else:
-        pass
+        print("Sorry, you lost!")
 
 
 def winner(player, dealer):
@@ -142,8 +158,6 @@ def winner(player, dealer):
     """
     player_won = player.has_winning_hand()
     dealer_won = dealer.has_winning_hand()
-    # Check if player has 21
-    # Check if dealer has 21
     # If just player has 21 or if just dealer has 21, return either 1 or 2
     if player_won and dealer_won == False:
         return 1
@@ -153,8 +167,16 @@ def winner(player, dealer):
     elif player_won and dealer_won:
         return 0
 
-    return -1
     # Otherwise, return -1
+    return -1
+
+
+def hit_helper():
+    pass
+
+
+def stand_helper():
+    pass
 
 
 if __name__ == "__main__":
