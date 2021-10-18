@@ -1,5 +1,5 @@
 """
-My attempt to code a game of blackjack, insprired by my annoyance of seeing ads 
+My attempt to code a game of blackjack, inspired by my annoyance of seeing ads 
 every two seconds while playing blackjack on my phone.
 
 - Rodrigo Villar
